@@ -4,9 +4,13 @@ Programme pour visualiser des modèles 3D construit à partir de propriétés in
 Etapes pour modéliser une image 2d en modèle 3D :
 
 1-Choisir une image de format PNG
+
 2-Mettez cette image dans le même répertoire que le programme python PNGToTxt
+
 3-Executez le programme python
+
 4-Copier le fichier obtenu dans le même répertoire ("file1.txt" par défault) et coller ce fichier dans le répertoire SimpleDataViewer-master
+
 5-Lancer la scéne unity Demo1_simple et vous obtenez votre modèle
 
 Facultatif :
