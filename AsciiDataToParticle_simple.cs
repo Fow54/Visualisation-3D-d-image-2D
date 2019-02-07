@@ -34,12 +34,44 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
 
     // texture : Select from Inspector Panel
     public Texture _tex_particle;
+    public int nb_bille = 10;
+    public string valeur_sup = "red";
+    public string valeur_inf = "blue";
+    public bool grey = false;
+    public bool offset = false;
+    private int valeur_supp = 3;
+    private int valeur_inff = 5;
+    
 
 
 
     // Read the data and store it in ATOM structure array
     public void ReadAsciiData()
     {
+        if (valeur_sup == "red")
+        {
+            valeur_supp = 3;
+        }
+        if (valeur_sup == "blue")
+        {
+            valeur_supp = 5;
+        }
+        if (valeur_sup == "green")
+        {
+            valeur_supp = 4;
+        }
+        if (valeur_inf == "red")
+        {
+            valeur_inff = 3;
+        }
+        if (valeur_inf == "blue")
+        {
+            valeur_inff = 5;
+        }
+        if (valeur_inf == "green")
+        {
+            valeur_inff = 4;
+        }
         // Data path
         string _path = Application.dataPath;
         if (Application.platform == RuntimePlatform.OSXPlayer)
@@ -48,14 +80,16 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
             _path += "/../";
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
             _path += "/../";
-        _path += "file1.txt";
+        _path += "batengland" +
+            "" +
+            ".txt";
 
         // ---------------------------------------- Count data rows
         int _particleCount = 0;
         string[] _allLines = File.ReadAllLines(@_path);
         for (int _i=0; _i<_allLines.Length; _i++)
             if (_allLines[_i].Length > 0)
-                _particleCount+=10;
+                _particleCount+=nb_bille;
 
         // ---------------------------------------- Prepare ATOM structure array for data points
         ATOM[] _Atoms = new ATOM[_particleCount];
@@ -64,15 +98,48 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
         int _k = 0;
         for (int _i = 0; _i < _allLines.Length; _i++)
         {
-            for (int _j = 0; _j < 10; _j++)
+            for (int _j = 0; _j < nb_bille; _j++)
             {
                 if (_allLines[_i].Length > 0)
                 {
-                    string[] _data = _allLines[_i].Split();
-                    _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[3]) -float.Parse(_data[5])) * _j * 5, float.Parse(_data[1]));
-                    _Atoms[_k]._radius = 1F;
-                    _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
-                    _k++;
+                    if (offset == false)
+                    {
+                        if (grey == false)
+                        {
+                            string[] _data = _allLines[_i].Split();
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * _j * 5, float.Parse(_data[1]));
+                            _Atoms[_k]._radius = 1F;
+                            _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
+                            _k++;
+                        }
+                        else
+                        {
+                            string[] _data = _allLines[_i].Split();
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[4]) + float.Parse(_data[5]) + float.Parse(_data[3])) * _j * 5, float.Parse(_data[1]));
+                            _Atoms[_k]._radius = 1F;
+                            _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
+                            _k++;
+                        }
+                    }
+                    else
+                    {
+                        if (grey == false)
+                        {
+                            string[] _data = _allLines[_i].Split();
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * (_j * 5 + 100), float.Parse(_data[1]));
+                            _Atoms[_k]._radius = 1F;
+                            _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
+                            _k++;
+                        }
+                        else
+                        {
+                            string[] _data = _allLines[_i].Split();
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f* float.Parse(_data[3])) * (_j * 5 + 100), float.Parse(_data[1]));
+                            _Atoms[_k]._radius = 1F;
+                            _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
+                            _k++;
+                        }
+                    }
                 }
             }
         }
