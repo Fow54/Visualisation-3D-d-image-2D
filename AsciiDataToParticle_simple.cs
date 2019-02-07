@@ -35,10 +35,11 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
     // texture : Select from Inspector Panel
     public Texture _tex_particle;
     public int nb_bille = 10;
+    public int decalage_bille = 5;
     public string valeur_sup = "red";
     public string valeur_inf = "blue";
     public bool grey = false;
-    public bool offset = false;
+    public int offset = 0;
     private int valeur_supp = 3;
     private int valeur_inff = 5;
     
@@ -102,12 +103,12 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
             {
                 if (_allLines[_i].Length > 0)
                 {
-                    if (offset == false)
+                    if (offset == 0)
                     {
                         if (grey == false)
                         {
                             string[] _data = _allLines[_i].Split();
-                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * _j * 5, float.Parse(_data[1]));
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * _j * decalage_bille, float.Parse(_data[1]));
                             _Atoms[_k]._radius = 1F;
                             _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
                             _k++;
@@ -115,9 +116,9 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
                         else
                         {
                             string[] _data = _allLines[_i].Split();
-                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[4]) + float.Parse(_data[5]) + float.Parse(_data[3])) * _j * 5, float.Parse(_data[1]));
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]) * (_j * decalage_bille + 200)) * _j * 5, float.Parse(_data[1]));
                             _Atoms[_k]._radius = 1F;
-                            _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
+                            _Atoms[_k]._rgb = new Color(0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 1F);
                             _k++;
                         }
                     }
@@ -126,7 +127,7 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
                         if (grey == false)
                         {
                             string[] _data = _allLines[_i].Split();
-                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * (_j * 5 + 100), float.Parse(_data[1]));
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * (_j * decalage_bille + offset), float.Parse(_data[1]));
                             _Atoms[_k]._radius = 1F;
                             _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
                             _k++;
@@ -134,9 +135,9 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
                         else
                         {
                             string[] _data = _allLines[_i].Split();
-                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f* float.Parse(_data[3])) * (_j * 5 + 100), float.Parse(_data[1]));
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f* float.Parse(_data[3])) * (_j * decalage_bille + offset), float.Parse(_data[1]));
                             _Atoms[_k]._radius = 1F;
-                            _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
+                            _Atoms[_k]._rgb = new Color(0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 1F);
                             _k++;
                         }
                     }
