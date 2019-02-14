@@ -1,37 +1,31 @@
-# Visualisation-3D-d-image-2D
-Programme pour visualiser des modèles 3D construit à partir de propriétés induites d'une image 2D. Ce projet est réalisé par Khalid Aissi et Abresol Victor. Le projet est encadré par Romain Vuillemot (tuteur).
+#3D model visualization
 
-Etapes pour modéliser une image 2d en modèle 3D :
+3D model visualization program built from induced properties of a 2D image.  The project is developped by Khalid Aissi and Abresol Victor and supervised by Romain Vuillemot (tutor).
 
-1-Choisir une image de format PNG
+Steps to Model a 2d Image into a 3D Model:
 
-2-Mettez cette image dans le même répertoire que le programme python PNGToTxt
+1-Choose a PNG format image
 
-3-Executez le programme python
+2-Put this image in the same directory as the python program PNGToTxt
 
-4-Copier le fichier obtenu dans le même répertoire ("file1.txt" par défault) et coller ce fichier dans le répertoire SimpleDataViewer-master
+3-Run the python program
 
-5-Lancer la scéne unity Demo1_simple et vous obtenez votre modèle
+4-Copy the file obtained in the same directory ("file1.txt" by default) and paste this file in the directory SimpleDataViewer-master
 
-Facultatif :
+5-Launch the scene unites Demo1_simple and you get your model
 
--Changez le nom du fichier txt :
+Optional:
 
-Si vous souhaitez changer le nom du fichier txt (file1.txt) alors il faut aussi le rennomer dans le programme unity "AsciiDataToParticle_simple" ligne 51
+-Change the name of the txt file:
 
--Construire la coordonnée verticale (y) :
+Name of the file txt (file1.txt) then it must also be read in the program unit "AsciiDataToParticle_simple" line 51
 
-Pour changez la construction de la coordoonées verticale, il faut changer la ligne 72 du programme "AsciiDataToParticle_simple"
+-Construct the vertical coordinate (y):
 
-Cette ligne construit les trois coordonnées (x,y,z) en tant que vecteur de cette façon :
- _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[3]) -float.Parse(_data[5])) * _j * 5, float.Parse(_data[1]));
- 
+To change the construction of the vertical coordinates, you have to change the line 72 of the program "AsciiDataToParticle_simple"
 
-data[0] correspond à la coordonnée x de l'image 2D
-data[1] correspond à la coordonnée y de l'image 2D
-data[3] correspond à la composante Rouge (R)
-data[4] correspond à la composante Verte (G)
-data[5] correspond à la composante Bleu (B)
+This line is used for the three coordinates (x, y, z): _Atoms [_k] ._ position = new Vector3 (float.Parse (_data [0]), (float.Parse (_data [3]) -float. Parse (_data [5])) * _j * 5, float.Parse (_data [1]));
 
--Construire le nombre de particule/couche sur l'axe vertical y :
-Insérez le nombre de particule que vous souhaitez construire à la place du nombre 10 aux lignes 58 et 67 du programme "AsciiDataToParticle_simple"
+data [0] corresponds to the x coordinate of the 2D data image [1] corresponding to the y coordinate of the 2D data image [3] corresponding to the red component (R) data [4] corresponding to the Green component ( G) the data [5] corresponds to the blue component (B)
+
+-Construct the number of particle / layer on the vertical axis and: Insert the number of particles you want to render instead of the number 10 to lines 58 and 67 of the program "AsciiDataToParticle_simple"
