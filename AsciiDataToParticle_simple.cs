@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 
 public class AsciiDataToParticle_simple : MonoBehaviour {
-
+    public GameObject PointPrefab;
     // Structure of each data point
     public struct ATOM
     {
@@ -81,7 +81,7 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
             _path += "/../";
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
             _path += "/../";
-        _path += "batengland" +
+        _path += "file1" +
             "" +
             ".txt";
 
@@ -103,27 +103,8 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
             {
                 if (_allLines[_i].Length > 0)
                 {
-                    if (offset == 0)
-                    {
-                        if (grey == false)
-                        {
-                            string[] _data = _allLines[_i].Split();
-                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * _j * decalage_bille, float.Parse(_data[1]));
-                            _Atoms[_k]._radius = 1F;
-                            _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
-                            _k++;
-                        }
-                        else
-                        {
-                            string[] _data = _allLines[_i].Split();
-                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]) * (_j * decalage_bille + 200)) * _j * 5, float.Parse(_data[1]));
-                            _Atoms[_k]._radius = 1F;
-                            _Atoms[_k]._rgb = new Color(0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 1F);
-                            _k++;
-                        }
-                    }
-                    else
-                    {
+                   
+                    
                         if (grey == false)
                         {
                             string[] _data = _allLines[_i].Split();
@@ -139,7 +120,7 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
                             _Atoms[_k]._radius = 1F;
                             _Atoms[_k]._rgb = new Color(0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 1F);
                             _k++;
-                        }
+                           
                     }
                 }
             }
@@ -166,8 +147,8 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
     void OnRenderObject()
     {
         // ---------------------------------------- Start rendering the data points
-        _mat_particle.SetPass(0);
-        Graphics.DrawProcedural(MeshTopology.Points, _cBuffer_render.count);
+      _mat_particle.SetPass(0);
+      Graphics.DrawProcedural(MeshTopology.Points, _cBuffer_render.count);
     }
     
 }
