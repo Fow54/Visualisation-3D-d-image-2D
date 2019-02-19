@@ -36,43 +36,19 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
     public Texture _tex_particle;
     public int nb_bille = 10;
     public int decalage_bille = 5;
-    public string valeur_sup = "red";
-    public string valeur_inf = "blue";
+    public int CoefRouge = 1;
+    public int CoefVert = 0;
+    public int CoefBleu = -1;
     public bool grey = false;
     public int offset = 0;
-    private int valeur_supp = 3;
-    private int valeur_inff = 5;
-    
+    public float taille = 1F;
+
 
 
 
     // Read the data and store it in ATOM structure array
     public void ReadAsciiData()
-    {
-        if (valeur_sup == "red")
-        {
-            valeur_supp = 3;
-        }
-        if (valeur_sup == "blue")
-        {
-            valeur_supp = 5;
-        }
-        if (valeur_sup == "green")
-        {
-            valeur_supp = 4;
-        }
-        if (valeur_inf == "red")
-        {
-            valeur_inff = 3;
-        }
-        if (valeur_inf == "blue")
-        {
-            valeur_inff = 5;
-        }
-        if (valeur_inf == "green")
-        {
-            valeur_inff = 4;
-        }
+    { //We associate with Valeur_sup and Y the index in the ATOM table corresponding to the color chosen as parameter in the table
         // Data path
         string _path = Application.dataPath;
         if (Application.platform == RuntimePlatform.OSXPlayer)
@@ -108,8 +84,8 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
                         if (grey == false)
                         {
                             string[] _data = _allLines[_i].Split();
-                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (float.Parse(_data[valeur_supp]) - float.Parse(_data[valeur_inff])) * (_j * decalage_bille + offset), float.Parse(_data[1]));
-                            _Atoms[_k]._radius = 1F;
+                            _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (CoefRouge * float.Parse(_data[3]) + CoefVert * float.Parse(_data[4])+ CoefBleu * float.Parse(_data[5])) * (_j * decalage_bille + offset), float.Parse(_data[1]));
+                            _Atoms[_k]._radius = taille;
                             _Atoms[_k]._rgb = new Color(float.Parse(_data[3]), float.Parse(_data[4]), float.Parse(_data[5]), 1F);
                             _k++;
                         }
@@ -117,7 +93,7 @@ public class AsciiDataToParticle_simple : MonoBehaviour {
                         {
                             string[] _data = _allLines[_i].Split();
                             _Atoms[_k]._position = new Vector3(float.Parse(_data[0]), (0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f* float.Parse(_data[3])) * (_j * decalage_bille + offset), float.Parse(_data[1]));
-                            _Atoms[_k]._radius = 1F;
+                            _Atoms[_k]._radius = taille;
                             _Atoms[_k]._rgb = new Color(0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 0.7152f * float.Parse(_data[4]) + 0.0722f * float.Parse(_data[5]) + 0.2126f * float.Parse(_data[3]), 1F);
                             _k++;
                            
